@@ -16,6 +16,7 @@ import urllib
 import json
 import datetime
 import BeautifulSoup
+import bsddb
 from twisted.internet import reactor, task, defer, protocol
 from twisted.python import log
 from twisted.words.protocols import irc
@@ -122,6 +123,22 @@ class LeetyIRC(irc.IRCClient):
         
     def _get_page_content(self,page,url):
          return page
+    
+    def command_karma(self,rest):
+          kdb = bsddb.btopen('karma.db', 'c')
+          whom, _, what = rest.partition(' ')
+          try:
+              if(whom == self.nick):
+                  kdb[whom]=str(int(kdb[whom])-1)
+                  return "To smart! "+whom+"'s karma is : "+kdb[whom]
+              if(what == "++"):
+                  kdb[whom]=str(int(kdb[whom])+1)
+              elif(what == "--"):
+                  kdb[whom]=str(int(kdb[whom])-1)
+          except KeyError:
+              print "here"
+              kdb[whom]="1"
+          return "Karma! Karma!"+whom+"'s karma is : "+kdb[whom]
 
     def command_flop(self,rest):
         return "Filp it!"
