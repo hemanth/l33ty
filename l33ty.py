@@ -26,7 +26,9 @@ from twisted.application import internet, service
 from twisted.web import google, client
 from twisted.web.http_headers import Headers
 
-
+__author__ = "Hemanth HM <hemanth.hm@gmail.com>"
+__license__ = "GNU GPLV3"
+__version__ = "1.0" 
 
 ''' Server and the port where the bot is to be hosted '''
 HOST, PORT = 'irc.freenode.net', 6667
