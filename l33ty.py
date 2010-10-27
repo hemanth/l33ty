@@ -208,7 +208,7 @@ class LeetyIRC(irc.IRCClient):
         title = unicode(soup.title.string).encode('utf-8')
         return '%s -- "%s"' % (url, title)
 
-   def command_calc(self, rest):
+    def command_calc(self, rest):
         '''RPN calculator!'''
         stack = []
         for tok in rest.split():
