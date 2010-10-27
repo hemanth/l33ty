@@ -81,7 +81,7 @@ class LeetyIRC(irc.IRCClient):
         
         # IF not a defined function
         if func is None:
-            self.say(channel, "%s,I cant understand what %s means..." % (nick,command))
+            self.say(channel, "%s,I cant understand what %s means, but you can teach me, catch me @ http://github.com/hemanth/l33ty" % (nick,message))
             return 
         
         d = defer.maybeDeferred(func, rest)
