@@ -34,26 +34,6 @@ __version__ = "1.0"
 ''' Server and the port where the bot is to be hosted '''
 HOST, PORT = 'irc.freenode.net', 6667
 
-''' RPN calc map operator symbol tuple of # and function '''
-calc_operators = {
-    '+': (2, operator.add),
-    '-': (2, operator.sub),
-    '*': (2, operator.mul),
-    '/': (2, operator.truediv),
-    '//': (2, operator.div),
-    '%': (2, operator.mod),
-    '^': (2, operator.pow),
-    'abs': (1, abs),
-    'ceil': (1, math.ceil),
-    'floor': (1, math.floor),
-    'round': (2, round),
-    'trunc': (1, int),
-    'log': (2, math.log),
-    'ln': (1, math.log),
-    'pi': (0, lambda: math.pi),
-    'e': (0, lambda: math.e),
-}
-
 
 class LeetyIRC(irc.IRCClient):
     ''' The nick name of the bot '''
@@ -207,25 +187,6 @@ class LeetyIRC(irc.IRCClient):
             return '%s -- no title found' % url
         title = unicode(soup.title.string).encode('utf-8')
         return '%s -- "%s"' % (url, title)
-    
-    def command_calc(self, rest):
-        '''RPN calculator!'''
-        stack = []
-        for tok in rest.split():
-            if tok in calc_operators:
-                n_pops, func = calc_operators[tok]
-                args = [stack.pop() for x in xrange(n_pops)]
-                args.reverse()
-                stack.append(func(*args))
-            elif '.' in tok:
-                stack.append(float(tok))
-            else:
-                stack.append(int(tok))
-        result = str(stack.pop())
-        if stack:
-            result += ' (warning: %d item(s) left on stack)' % len(stack)
-        return result
-        
 
 class LeetyIRCactory(protocol.ReconnectingClientFactory):
     protocol = LeetyIRC
