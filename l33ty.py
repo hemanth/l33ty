@@ -153,6 +153,9 @@ class LeetyIRC(irc.IRCClient):
         
     def command_flip(self,rest):
         return random.choice(('head', 'tail'))
+        
+    def command_roll(self,rest):
+        return random.choice((1,2,3,4,5,6))
     
     def command_fortune(self,rest):
         return os.popen('fortune').read().translate(None, '\n\r\t')
