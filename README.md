@@ -3,6 +3,7 @@ l33ty is an IRC bot build with python, that can do few many things like :
 
     * l33t translation 
     * Google I'm feeling lucky search 
+    * Karma system
     * XCKD random images
     * Flipping a coin, throwing the dice
 
@@ -12,6 +13,7 @@ l33ty is an IRC bot build with python, that can do few many things like :
 
 1. Python 2.6.5
 2. Twisted python 10.0.0
+3. fortune from bsd games
 
 
 
