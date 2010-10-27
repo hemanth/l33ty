@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 ''' A PY IRC bot with functionalities like:
     * l33t translation 
-    * Google I'm feeling luck search 
+    * Google I'm feeling lucky search 
+    * Karma system nick++ or nick--
     * XCKD random images
     * Flipping a coin, throwing the dice
 '''
@@ -86,6 +87,9 @@ class LeetyIRC(irc.IRCClient):
         d = defer.maybeDeferred(func, rest)
         if channel == self.nickname:
             args = [nick]
+        # If there is rediction request made in the bot query.
+        elif len(rest.split('>')) > 1:
+            args = [channel, rest.split('>')[1]]
         else:
             args = [channel, nick]
         d.addCallbacks(self._send_message(*args), self._show_error(*args))
@@ -127,18 +131,20 @@ class LeetyIRC(irc.IRCClient):
          return page
     
     def command_karma(self,rest):
+          ''' This method maintains a karma system bsddb is used. '''
           kdb = bsddb.btopen('karma.db', 'c')
           whom, _, what = rest.partition(' ')
           try:
               if(whom == self.nick):
                   kdb[whom]=str(int(kdb[whom])-1)
+                  # The user can't ++ his own karam
                   return "To smart! "+whom+"'s karma is : "+kdb[whom]
               if(what == "++"):
                   kdb[whom]=str(int(kdb[whom])+1)
               elif(what == "--"):
                   kdb[whom]=str(int(kdb[whom])-1)
           except KeyError:
-              print "here"
+              # The user is been added to the karma system
               kdb[whom]="1"
           return "Karma! Karma!"+whom+"'s karma is : "+kdb[whom]
 
