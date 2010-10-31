@@ -57,7 +57,7 @@ calc_operators = {
 
 class LeetyIRC(irc.IRCClient):
     ''' The nick name of the bot '''
-    nickname = 'l33ty_change_it'
+    nickname = 'l33ty'
 
     ''' After server has acknowledged the nick '''
     def signedOn(self):
@@ -81,7 +81,7 @@ class LeetyIRC(irc.IRCClient):
         
         # IF not a defined function
         if func is None:
-            self.say(channel, "%s,I cant understand what %s means, but you can teach me, catch me @ http://github.com/hemanth/l33ty" % (nick,message))
+            self.msg(channel, "%s,I cant understand what %s means, but you can teach me, catch me @ http://github.com/hemanth/l33ty" % (nick,message))
             return 
         
         d = defer.maybeDeferred(func, rest)
@@ -117,7 +117,10 @@ class LeetyIRC(irc.IRCClient):
     def command_help(self,rest):
         ''' Just returns the help msg, to the user who pinged with help '''
         return "Try l33t <str>, peep <url>,goog <str>, xkcd, flip, flop, roll, fortune"
-        
+       
+    def command_hi(self,rest):
+        return "Hello :)"
+
     def command_l33t(self,rest):
         ''' This method does the l33t translation, with the use of web API '''
         url='http://nyhacker.org/~hemanth.hm/hacks/t.php?'+urllib.quote(rest)
@@ -227,11 +230,11 @@ class LeetyIRC(irc.IRCClient):
         result = str(stack.pop())
         if stack:
             result += ' (warning: %d item(s) left on stack)' % len(stack)
-        return resul
+        return result
 
 class LeetyIRCactory(protocol.ReconnectingClientFactory):
     protocol = LeetyIRC
-    channels = '#your_channel'
+    channels = '#testingbot'
 
 if __name__ == '__main__':
     reactor.connectTCP(HOST, PORT, LeetyIRCactory())
