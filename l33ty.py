@@ -116,7 +116,7 @@ class LeetyIRC(irc.IRCClient):
     
     def command_help(self,rest):
         ''' Just returns the help msg, to the user who pinged with help '''
-        return "Try l33t <str>, peep <url>,goog <str>, xkcd, flip, flop, roll, fortune"
+        return "Try l33t <str>, peep <url>,goog <str>, xkcd, flip, flop, roll, fortune, karma nick++/--"
        
     def command_hi(self,rest):
         return "Hello :)"
