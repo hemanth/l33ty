@@ -167,6 +167,8 @@ class LeetyIRC(irc.IRCClient):
         ''' rest is the rest of the query for goog <str> passed by the user
             that is encoded and is queried with the help of google search
             API, a callback is added after getpage() '''
+        if(rest == "" or rest == " "):
+           rest = "google"
         query = urllib.urlencode({'q': rest})
         url = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&%s' % query
         search_response_d = getPage(url)
