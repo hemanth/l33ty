@@ -26,4 +26,7 @@ Get the dependencies if on a Debian based system by typing the below, or else ge
 		git clone git://github.com/hemanth/l33ty.git
 		cd l33ty
 		# edit the bot nick, host and the channel as per need
-		python l33ty.py 
+		python l33ty.py
+
+## Demo
+        http://player.vimeo.com/video/16360222
