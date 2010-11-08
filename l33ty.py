@@ -161,7 +161,7 @@ class LeetyIRC(irc.IRCClient):
         return random.choice((1,2,3,4,5,6))
     
     def command_fortune(self,rest):
-        return os.popen('fortune').read().translate(None, '\n\r\t')
+        return os.popen('fortune -n 111').read().translate(None, '\n\r\t')
         
     def command_goog(self,rest):
         ''' rest is the rest of the query for goog <str> passed by the user
